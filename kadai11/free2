@@ -1,0 +1,4 @@
+#!/bin/sh
+
+ipcs -q | grep hi12nishi | awk '{print $2}' | xargs -I{} ipcrm -q {}
+

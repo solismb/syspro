@@ -1,0 +1,2 @@
+open hoge.txt
+hello world!

@@ -1,0 +1,16 @@
+#!/bin/tcsh
+
+if ($#argv == 1) then
+    set f = $argv[1]
+else
+    echo "usage: ./kaihatsu2 [file].c"
+    exit
+endif
+
+if ($f:e == "c") then
+    vi $f
+    gcc $f
+    ./a.out
+else
+    echo "not a C file."
+endif

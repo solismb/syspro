@@ -1,0 +1,28 @@
+# 7-2
+(ファイル1の内容 : 改行を含め全27文字)
+abc
+abcdefghi
+abcdefghijkl
+
+(ファイル2の内容 : 改行を含め全18文字)
+abcd
+abcde
+abcdef
+
+Q. BUFSIZE 5 にしたときfgets()は何回実行されるか?
+A.
+## ファイル1
+予想 : 7
+答え :
+"abc\n"
+"abcd", "efgh", "i\n"
+"abcd", "efgh", "ijkl", "\n"
+よって 7回
+
+## ファイル2
+予想 : 6
+答え :
+"abcd", "\n"
+"abcd", "e\n"
+"abcd", "ef\n"
+よって 6回

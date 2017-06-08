@@ -1,0 +1,5 @@
+scanf
+scanf
+scanf
+
+

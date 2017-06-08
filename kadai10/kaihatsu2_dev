@@ -1,0 +1,56 @@
+#!/bin/tcsh
+
+if ($#argv == 1) then
+    set f = $argv[1]
+else
+    echo "usage: ./kaihatsu2 [file].c"
+    exit
+endif
+
+if ($f:e == "c") then
+    vi f
+    gcc f
+    ./a.out
+else
+    echo "not a C file."
+endif
+
+set tmp = aaaa
+
+if ($#argv != 1) then
+    echo test
+# else if ($argv[1]:e != "c") then
+else if ($tmp != "c") then
+    echo test2
+else
+    echo hoge
+endif
+
+#---------------------
+if ($#argv == 1) then
+    set targetFile = $argv[1]
+else
+    set targetFile = ""
+endif
+
+if ($targetFile:e == "c") then 
+    echo "C"
+else 
+    echo "not C"
+endif
+#---------------------
+
+# -- OK
+echo -------OK
+if ($#argv == 1) then
+    if ($argv[1] == "test") then
+        echo aaaa
+    endif
+endif
+
+# -- NG
+echo -------NG
+if ($#argv == 1 && $argv[1] == "test") then
+    echo bbbb
+endif
+

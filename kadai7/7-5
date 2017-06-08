@@ -1,0 +1,23 @@
+1.
+grep ドコモ *.csv | wc -l
+1640
+grep ソフトバンク *.csv | wc -l
+493
+grep au *.csv | wc -l
+810
+
+2.
+grep 熊本県 *.csv | grep Female | wc -l
+21
+
+3.
+grep 京都県 *.csv | grep au | grep 未婚 | grep Male | wc -l
+0
+
+4.
+grep /8/ *.csv | grep Male | wc -l
+107
+
+5.
+grep -n 熊本県 *.csv | sort -t , -k 2 | head -1
+customers1.csv:981:会田　三郎,あいだ　さぶろう,Male,71,1945/3/15,熊本県,080-503-3579,ドコモ

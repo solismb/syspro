@@ -1,0 +1,19 @@
+text
+printf関数の冒頭
+main関数の冒頭
+
+data
+ex1 = 532
+st1 = 100
+
+bss
+st2
+array_static
+ex2
+
+heap
+array_dynamic
+
+stack
+&array_dynamic
+array_local

@@ -1,0 +1,14 @@
+---- 変数 ----
+ex1 : 0x00000000600b3c
+ex2 : 0x00000000600fa0
+st1 : 0x00000000600b40
+st2 : 0x00000000600b80
+local : 0x007ffed171b7bc
+---- 配列 ----
+array_static : 0x00000000600ba0
+array_local : 0x007ffed171b3b0
+&array_dynamic : 0x007ffed171b3a8
+array_dynamic : 0x0000000233e010
+---- 関数 ----
+main : 0x00000000400554
+printf : 0x00000000400430

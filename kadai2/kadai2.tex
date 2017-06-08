@@ -1,0 +1,117 @@
+\documentclass[10pt]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx,color}
+\usepackage{listings,jlisting}
+\usepackage{url}
+\usepackage{comment}
+%\usepackage{color}
+
+\definecolor{olivegreen}{cmyk}{0.64,0,0.95,0.40}
+\definecolor{colfunc}{rgb}{1,0.07,0.54}
+\definecolor{cadetblue}{cmyk}{0.62,0.57,0.23,0}
+\definecolor{brown}{cmyk}{0,1,1,0.3}
+\definecolor{colid}{rgb}{0.63,0.44,0}
+
+\lstset{
+language=c,%プログラミング言語によって変える。
+basicstyle={\ttfamily\small},
+keywordstyle={\color{olivegreen}},
+%[2][3]はプログラミング言語によってあったり、なかったり
+keywordstyle={[2]\color{colfunc}},
+keywordstyle={[3]\color{cadetblue}},%
+commentstyle={\color{brown}},
+%identifierstyle={\color{colid}},
+stringstyle=\color{blue},
+tabsize=2,
+frame=trbl,
+numbers=left,
+numberstyle={\ttfamily\small},
+breaklines=true,%折り返し
+backgroundcolor={\color[gray]{.95}},
+captionpos=b
+}
+
+%画像表示のマクロ
+\newcommand{\myfig}[4][]{
+	\begin{figure}[htbp]
+		\begin{center}
+			\includegraphics[clip,#1]{#2}
+			\caption{#3}
+			\label{fig:#4}
+		\end{center}
+	\end{figure}
+}
+% \myfigの使い方
+% \myfig[widthとかheightとか]{画像へのパス}{ここに画像下の説明}{labelのタグ}
+
+\begin{document}
+	\begin{titlepage}
+		\title{\vspace{2cm}H28 数理情報工学 No.1(基礎) \\ レポート\vspace{12cm}}
+		\author{人間情報システム工学科 5年 24番 西 陽太}
+		\date{提出期限：2016年 5月 日 (曜日) \\ \hspace{-1.3cm}提出日：2016年 5月 日}
+		\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+
+\setlength{\oddsidemargin}{-0.4truemm}
+\setlength{\evensidemargin}{-0.4truemm}
+
+
+\section{基本概念}
+	\subsection{背景・歴史}
+		産業革命に始まった機械化・自動化の波は, 時代の流れとともにますます加速している. 1946年に世界最初のコンピュータENIACがアメリカのペンシルバニア大学で開発され, それからわずか半世紀の間に, コンピュータは急速に小型化, 高機能化し, 通信機能も備えることによって研究者・開発者のみならず, 一般の社会生活にも不可欠な機械となった. また, スーパーコンピュータは, 人間が一生かけても出来ないような計算を短時間で解くことが出来る. \par
+		このような急速な演算スピードの増加にもかかわらず, コンピュータに人物や物体の認識など人間が簡単に出来るようなことをコンピュータに行わせようとすると, なかなか満足のいく結果は得られなかった. \par
+		そこで登場したのがニューラルネットワークである. ニューラルネットワークは, 人間の脳の機能をコンピュータ内に実現しようとしたものである. コンピュータで知的処理を行うための原理や方法、新しい情報処理の模索が1950年代から活発に行われ, 1958年にパーセプトロンという初のニューラルネットワークモデルが発明された. しかし, 1969年にパーセプトロン限界説が唱えられ, 第一次ニューラルネットワークブームは終焉を迎える. \par
+		その後, ニューラルネットワークの研究は一部の研究者によって地道に行われ, この時期, コンピュータ技術の進歩とともに知識処理を行おうとするエキスパートシステムの研究・開発が盛んになり, 1980年代に入ると, 再びニューラルネットワークが注目を集めている.
+		
+	\subsection{ニューラルネットワークとは}
+		人間の脳の中には, 多数のニューロン(神経細胞)が存在している.各ニューロンは, 多数のニューロンから信号を受け取り, また, 他の多数のニューロンへ信号を受け渡している. 脳はこの信号の流れによって様々な情報処理を行っている. \par
+		この仕組みをコンピュータ内に実現しようとしたものがニューラルネットワークである. ニューラルネットワークは生体上のニューロンをごく単純にモデル化したユニットを多数結合したネットワークで, ユニット同士の結合の強さ(結合荷重)を「学習」と呼ばれるアルゴリズムによって調整することで, 目的の処理を実現することが出来る. \par
+		
+\newpage
+		
+	\subsection{ニューロンのモデル化}
+		ニューロンの基本的な働きは情報(信号)の入力と出力である. ただし, 入力された情報をそのまま出力するのではなく, 一定の閾値を超えたときのみ出力される. 
+		\begin{figure}[htbp]
+			\begin{center}
+				\includegraphics[clip,width=10cm]{nmodel.png}
+			\end{center}
+		\end{figure}
+		
+		ニューロンは相互に信号伝達を行うが, その信号伝達効率は一様ではない. そこで, それぞれの入力に対して結合荷重を設定する. そして, その重み付きの入力の総和が各ニューロンの設定されている閾値を超えたとき, 発火(ニューロンが他のニューロンからの入力を受け, その総和が閾値を超えると信号を出力する現象)したものとみなし, 他ニューロンに信号を送る. コンピュータ上での実現と簡単化のため, 信号がない状態を0, ある状態を1とし, 以上を数式化する. \par
+		$i$番目のニューロンからの入力信号を$x_{i} (i = 1, 2, \cdots , n)$, それぞれの荷重を $w_{i} (i = 1, 2, \cdots , n)$とするとき, 他ニューロンからの入力信号の総和は, 
+		\[
+			\sum_{i = 1}^{n}x_{i} w_{i}
+		\]
+		となる. 入力信号を受け取ったニューロンは, その入力値が一定の閾値 $\theta$ を超えたとき他のニューロンに対して信号を出力する. よって, 出力 $y$ は次のようになる.
+		\[
+			y = f_{k}\left( \sum_{i = 1}^{n} x_{i}w_{i} - \theta \right)
+		\]
+		ただし, 関数$f_{k}$は入力値に対し0か1で返すものである. このような関数は, ステップ関数またはヘビサイド関数と呼ばれている. 関数は次のようになる.
+		\[
+			y = f_{k}(x) = \left\{
+														\begin{array}{l}
+														1, x > 0 \\
+														0, x \leq 0
+														\end{array}
+											\right.
+		\]
+		以上がニューラルネットを構成していくうえでの基本単位となるニューロンのモデルである.
+	
+
+\section{感想}
+	ニューラルネットワークについて, コンピュータに学習させる手法で具体的なことは知らなかったが, 今回のレポートを作成するために本やインターネットで調べたおかげでどのようなものか理解することが出来た. \par ニューラルネットワークを具体的に応用する方法やプログラムを組むことは難しそうだと感じた.
+	
+\section{参考文献}
+\noindent
+	荻原将文 (1994) 『ニューロ・ファジィ・遺伝的アルゴリズム』 産業図書. \\
+	
+	``ニューラルネットワーク''. 静岡理工科大学 情報学部 菅沼義昇.\\
+	\url{https://www.sist.ac.jp/~suganuma/kougi/other_lecture/SE/net/net.htm} \\
+	
+	``ニューラルネットワーク''. 日本大学 工学部 松井和宏.\\
+	\url{http://www.cs.ce.nihon-u.ac.jp/~matsui/nn.html} \\
+	
+	``ニューラルネットワーク'' \\
+	\url{http://www.geocities.co.jp/SiliconValley-Cupertino/3384/nn/NN.html}
+\end{document}

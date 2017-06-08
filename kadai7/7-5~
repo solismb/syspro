@@ -1,0 +1,11 @@
+1.
+grep ドコモ *.csv | wc -l
+1640
+grep ソフトバンク *.csv | wc -l
+493
+grep au *.csv | wc -l
+810
+
+2.
+grep 熊本県 *.csv | grep Female | wc -l
+21
